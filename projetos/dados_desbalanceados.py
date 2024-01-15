@@ -109,3 +109,37 @@ print(f'Percentual de acerto para pessoas que pagam o emprestimo (undersampling)
 
 classe_1_under = 35/(35+10)
 print(f'Percentual de acerto para pessoas que não pagam o emprestimo(undersampling): {classe_1_under}')
+
+#Usando sobreamostragem com oversampling - SMOTE
+
+from imblearn.over_sampling import SMOTE
+
+smote = SMOTE(sampling_strategy='minority')
+X_smote, y_smote = smote.fit_resample(X, y)
+
+np.unique(y,return_counts=True)
+np.unique(y_smote,return_counts=True)
+
+X_train_over, X_test_over, y_train_over, y_test_over = train_test_split(X_smote, y_smote,
+                                                                        test_size=0.20,
+                                                                        random_state=RANDOM_SEED,
+                                                                        stratify=y_smote )
+
+modelo_over = GaussianNB()
+modelo_over.fit(X_train_over,y_train_over)
+previsoes_over = modelo_over.predict(X_test_over)
+
+acuracia_over = accuracy_score(y_test_over,previsoes_over)
+
+print(acuracia_over)
+cm_over = confusion_matrix(y_test_over, previsoes_over)
+print(cm_over)
+
+sns.heatmap(cm_over,annot=True)
+
+classe_0_over = 306/(306+17)
+
+print(f'Percentual de acerto para pessoas que pagam o emprestimo (undersampling): {classe_0_over}')
+
+classe_1_over = 332/(332+37)
+print(f'Percentual de acerto para pessoas que não pagam o emprestimo(undersampling): {classe_1_over}')
