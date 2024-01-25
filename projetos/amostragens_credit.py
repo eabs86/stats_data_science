@@ -71,7 +71,7 @@ def amostragem_estratificada(dataset,proporcao,random_seed,campo):
 
 df_amostragem_estratificada = amostragem_estratificada(dataset,0.5,RANDOM_SEED,'c#default')
 
-df_amostragem_estratificada.shape
+df_amostragem_estratificada.shape 
 
 def amostragem_reservatorio(dataset,amostras):
     stream = []
